@@ -5,7 +5,14 @@ import { useNavigate } from 'react-router-dom';
 import ReactGA from 'react-ga4';
 import { v4 as uuidv4 } from 'uuid'; // ✅ Import UUID
 import { useState } from 'react';
+import { trackPurchase, trackEvent } from '../utils/analytics';
 
+// In onSuccess callback:
+onSuccess: (response) => {
+  trackPurchase(response.reference, product.price);
+  trackEvent('Payment', 'Success', product.name, product.price);
+  // ... rest of your code
+}
 export default function PaymentButton({ product, formData, type, onBeforePayment }) {
   const { language } = useLanguage();
   const navigate = useNavigate();

@@ -7,7 +7,13 @@ import PaymentButton from '../components/PaymentButton';
 import ScreenshotBlocker from '../components/ScreenshotBlocker';
 import LockOverlay from '../components/LockOverlay';
 import { premiumCards } from '../data/premiumCards';
+import { trackCustomization } from '../utils/analytics';
 
+// When user clicks customize:
+const handleCustomize = () => {
+  trackCustomization(card.type, card.name);
+  // ... rest of your code
+};
 export default function CardCustomizePage() {
   const { cardId } = useParams();
   const navigate = useNavigate();
