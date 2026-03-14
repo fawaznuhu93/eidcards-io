@@ -1,6 +1,6 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { LanguageProvider } from './contexts/LanguageContext';
-import { CartProvider } from './contexts/CartProvider';
+import { CartProvider } from './contexts/CartContext';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import IndividualCards from './pages/IndividualCards';
@@ -9,33 +9,18 @@ import FamilyPacks from './pages/FamilyPacks';
 import CardCustomizePage from './pages/CardCustomizePage';
 import VideoCardCustomizePage from './pages/VideoCardCustomizePage';
 import FamilyPackCustomizePage from './pages/FamilyPackCustomizePage';
+// ✅ IMPORT these pages
 import VerifyPayment from './pages/VerifyPayment';
 import Download from './pages/Download';
-import { useEffect } from 'react';
-
-// Scroll to top on route change
-function ScrollToTop() {
-  const { pathname } = useLocation();
-  
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  }, [pathname]);
-  
-  return null;
-}
 
 function App() {
   return (
     <LanguageProvider>
       <CartProvider>
         <Router>
-          <ScrollToTop />
-          <div className="min-h-screen flex flex-col">
+          <div className="min-h-screen">
             <Navbar />
-            <main className="flex-grow container-padding section-spacing">
+            <main>
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/individual" element={<IndividualCards />} />
@@ -44,6 +29,7 @@ function App() {
                 <Route path="/card/:cardId" element={<CardCustomizePage />} />
                 <Route path="/video-card/:cardId" element={<VideoCardCustomizePage />} />
                 <Route path="/family-pack/:packId" element={<FamilyPackCustomizePage />} />
+                {/* ✅ ADD these routes */}
                 <Route path="/verify" element={<VerifyPayment />} />
                 <Route path="/download" element={<Download />} />
               </Routes>
